@@ -421,6 +421,26 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
         return  rec;
     }
+    public void deleteRecord(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("customerDetail","name=?",new String[]{name});
+    }
+
+    public void updateRecord(String name, String newPhnumber, String newBook, String newDate, String newQuantity, String newPrice) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Create a ContentValues object with the new values
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("phnumber", newPhnumber);
+        contentValues.put("book", newBook);
+        contentValues.put("date", newDate);
+        contentValues.put("quantity", newQuantity);
+        contentValues.put("price", newPrice);
+
+        // Update the database
+        db.update("customerDetail", contentValues, "name=?", new String[]{name});
+    }
+
 }
 
 
